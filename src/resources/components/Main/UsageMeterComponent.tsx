@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import { Divider, Typography } from '@mui/material';
 import { CircularProgressProps } from '@mui/material/CircularProgress';
 import CircularProgressWithBackground from '../CircularProgressWithBackground';
-import EnergyUseProvider from '../../../providers/EnergyUseProvider';
 
 interface UsageMeterProps extends CircularProgressProps {
   value: number;
@@ -90,20 +89,12 @@ function UsageMeterComponentNoUse(props: UsageMeterProps) {
   );
 }
 
-function UsageMeterComponent() {
-  const [usage, setUsage] = React.useState<number>(0);
-  const [totalUsage, setTotalUsage] = React.useState<number>(0);
-
-  React.useEffect(() => {
-    setUsage(EnergyUseProvider.usage);
-    setTotalUsage(EnergyUseProvider.totalUsage);
-  }, [EnergyUseProvider]);
-
+function UsageMeterComponent({ usage, totalusage }: UsageMeterProps) {
   return (
     <UsageMeterComponentNoUse
-      value={usage}
+      value={usage ?? 0}
       usage={usage}
-      totalusage={totalUsage}
+      totalusage={totalusage}
     />
   )
 }
