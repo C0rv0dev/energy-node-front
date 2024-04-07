@@ -1,3 +1,0 @@
-[submodule "src/models"]
-	path = src/models
-	url = git@github.com:C0rv0dev/energy-node-models.git
