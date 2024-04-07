@@ -13,12 +13,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SidebarItem from './components/SidebarItem';
-import Router from '../../routing/Router';
 
 // icons
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import ErrorIcon from '@mui/icons-material/Error';
 import config from '../../config/config';
+import RoutingContext from '../../contexts/RoutingContext';
 
 const drawerWidth = 240;
 
@@ -111,7 +111,7 @@ function Sidebar({ children }: Props) {
     setOpen(false);
   };
 
-  const displayPath = Router.getCurrentPath();
+  const displayPath = RoutingContext.getCurrentPath();
 
   return (
     <Box sx={{ display: 'flex', height: '100vh', overflow: 'auto' }}>

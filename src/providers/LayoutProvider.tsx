@@ -1,6 +1,5 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import LayoutContext from '../contexts/LayoutContext';
-import Sidebar from '../resources/layout/Sidebar';
 
 interface Props {
   children: React.ReactNode;
@@ -18,9 +17,7 @@ function LayoutProvider({ children }: Props) {
 
   return (
     <LayoutContext.Provider value={value}>
-      <Sidebar>
-        {children}
-      </Sidebar>
+      {children}
     </LayoutContext.Provider>
   );
 }

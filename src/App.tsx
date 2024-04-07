@@ -5,7 +5,7 @@ import LayoutProvider from './providers/LayoutProvider';
 function App() {
   return (
     <LayoutProvider>
-      {Router.render()}
+      <Router />
     </LayoutProvider>
   );
 }

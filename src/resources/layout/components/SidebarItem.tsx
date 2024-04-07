@@ -3,6 +3,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   path: string;
@@ -11,6 +12,8 @@ interface Props {
 }
 
 function SideBarItem({ open, path, icon }: Props) {
+  const navigateTo = useNavigate();
+
   const formatToDisplay = (path: string) => {
     // set first letter to uppercase
     return path.charAt(0).toUpperCase() + path.slice(1);
@@ -18,6 +21,7 @@ function SideBarItem({ open, path, icon }: Props) {
 
   const handleNavigate = () => {
     // navigate to path
+    navigateTo(path);
   }
 
   return (

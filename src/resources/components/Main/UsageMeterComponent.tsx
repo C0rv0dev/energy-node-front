@@ -12,12 +12,6 @@ interface UsageMeterProps extends CircularProgressProps {
 }
 
 function UsageMeterComponentNoUse(props: UsageMeterProps) {
-
-  React.useEffect(() => {
-    EnergyUseProvider.setTotalUsage();
-    EnergyUseProvider.setUsage();
-  }, [])
-
   return (
     <Box
       sx={{
@@ -97,8 +91,13 @@ function UsageMeterComponentNoUse(props: UsageMeterProps) {
 }
 
 function UsageMeterComponent() {
-  const usage = EnergyUseProvider.usage;
-  const totalUsage = EnergyUseProvider.totalUsage;
+  const [usage, setUsage] = React.useState<number>(0);
+  const [totalUsage, setTotalUsage] = React.useState<number>(0);
+
+  React.useEffect(() => {
+    setUsage(EnergyUseProvider.usage);
+    setTotalUsage(EnergyUseProvider.totalUsage);
+  }, [EnergyUseProvider]);
 
   return (
     <UsageMeterComponentNoUse
