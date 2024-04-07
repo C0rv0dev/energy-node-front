@@ -13,8 +13,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SidebarItem from './components/SidebarItem';
+import Router from '../../routing/Router';
+
+// icons
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import Router from '../../../routing/Router';
+import ErrorIcon from '@mui/icons-material/Error';
+import config from '../../config/config';
 
 const drawerWidth = 240;
 
@@ -55,6 +59,10 @@ interface AppBarProps extends MuiAppBarProps {
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({ theme, open }) => ({
+  color: theme.palette.text.primary,
+  backgroundColor: theme.palette.background.default,
+  boxShadow: 'none',
+  borderBottom: `1px solid ${theme.palette.divider}`,
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
@@ -91,7 +99,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default function MiniDrawer({ children }: Props) {
+function Sidebar({ children }: Props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -106,7 +114,7 @@ export default function MiniDrawer({ children }: Props) {
   const displayPath = Router.getCurrentPath();
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', height: '100vh', overflow: 'auto' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -123,7 +131,7 @@ export default function MiniDrawer({ children }: Props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            {process.env.REACT_APP_NAME || 'React App'}
+            {config.app_name}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -143,13 +151,39 @@ export default function MiniDrawer({ children }: Props) {
           </Box>
         </DrawerHeader>
         <Divider />
-        <List>
+        <List sx={{ paddingTop: 0 }}>
           <SidebarItem
             open={open}
             path='inbox'
             icon={<InboxIcon />}
           />
+
+          <SidebarItem
+            open={open}
+            path='about'
+            icon={<ErrorIcon />}
+          />
         </List>
+
+        {/* set version number and copyright on bottom */}
+        <Box sx={{ flexGrow: 1 }} />
+
+        <Divider />
+
+        <Box sx={{ p: 2 }}>
+          <Typography variant="body2" color="textSecondary" align="center">
+            {config.app_version}
+          </Typography>
+
+          {open && (
+            <Typography variant="body2" color="textSecondary" align="center">
+              {'© '}
+              {new Date().getFullYear()}
+              {' '}
+              {config.app_name}
+            </Typography>
+          )}
+        </Box>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
@@ -158,3 +192,5 @@ export default function MiniDrawer({ children }: Props) {
     </Box>
   );
 }
+
+export default Sidebar;

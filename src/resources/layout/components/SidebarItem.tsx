@@ -3,8 +3,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 
 interface Props {
   path: string;
@@ -17,6 +15,11 @@ function SideBarItem({ open, path, icon }: Props) {
     console.log('navigate to:', path);
   }
 
+  const formatToDisplay = (path: string) => {
+    // set first letter to uppercase
+    return path.charAt(0).toUpperCase() + path.slice(1);
+  };
+
   return (
     <>
       <ListItem
@@ -26,8 +29,9 @@ function SideBarItem({ open, path, icon }: Props) {
       >
         <ListItemButton
           sx={{
+            alignItems: 'center',
+            justifyContent: open ? 'space-between' : 'center',
             minHeight: 48,
-            justifyContent: open ? 'initial' : 'center',
             px: 2.5,
           }}
         >
@@ -40,7 +44,14 @@ function SideBarItem({ open, path, icon }: Props) {
           >
             {icon}
           </ListItemIcon>
-          <ListItemText primary={path} sx={{ opacity: open ? 1 : 0 }} />
+
+          <ListItemText
+            primary={formatToDisplay(path)}
+            sx={{
+              display: open ? 'block' : 'none',
+              opacity: open ? 1 : 0,
+            }}
+          />
         </ListItemButton>
       </ListItem>
     </>

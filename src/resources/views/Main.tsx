@@ -54,7 +54,7 @@ function Main() {
 
   return (
     <>
-      <div style={{ height: '100vh' }}>
+      <div>
         <form ref={formRef}>
           <input
             type="text"
