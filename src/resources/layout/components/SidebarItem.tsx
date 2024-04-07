@@ -11,21 +11,21 @@ interface Props {
 }
 
 function SideBarItem({ open, path, icon }: Props) {
-  const navigate = () => {
-    console.log('navigate to:', path);
-  }
-
   const formatToDisplay = (path: string) => {
     // set first letter to uppercase
     return path.charAt(0).toUpperCase() + path.slice(1);
   };
+
+  const handleNavigate = () => {
+    // navigate to path
+  }
 
   return (
     <>
       <ListItem
         key={path}
         disablePadding sx={{ display: 'block' }}
-        onClick={navigate}
+        onClick={handleNavigate}
       >
         <ListItemButton
           sx={{

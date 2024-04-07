@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 
 interface CircularProgressWithBackgroundProps {
-  isDeterminate?: boolean;
+  isdeterminate?: string;
 }
 
 function CircularProgressWithBackground(props: CircularProgressWithBackgroundProps) {
@@ -22,7 +22,7 @@ function CircularProgressWithBackground(props: CircularProgressWithBackgroundPro
       />
 
       <CircularProgress
-        variant={props.isDeterminate ? 'determinate' : 'indeterminate'}
+        variant={props.isdeterminate ? 'determinate' : 'indeterminate'}
         sx={{
           color: (theme) => (theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8'),
           animationDuration: '550ms',

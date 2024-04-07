@@ -5,30 +5,17 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // views imports
 import Main from "../resources/views/Main";
 
-class Router {
-  render() {
-    return (
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path={RouteList.Home}
-            element={<Main />}
-          />
-        </Routes>
-      </BrowserRouter>
-    );
-  }
-
-  getCurrentPath() {
-    const currentPath = window.location.pathname;
-
-    switch (currentPath) {
-      case RouteList.Home:
-        return "Home";
-      default:
-        return null;
-    }
-  }
+function Router() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path={RouteList.Home}
+          element={<Main />}
+        />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default new Router();
+export default Router;

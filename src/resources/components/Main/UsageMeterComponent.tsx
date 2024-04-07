@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { Divider } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 import { CircularProgressProps } from '@mui/material/CircularProgress';
 import CircularProgressWithBackground from '../CircularProgressWithBackground';
 import EnergyUseProvider from '../../../providers/EnergyUseProvider';
@@ -8,7 +8,7 @@ import EnergyUseProvider from '../../../providers/EnergyUseProvider';
 interface UsageMeterProps extends CircularProgressProps {
   value: number;
   usage?: number;
-  totalUsage?: number;
+  totalusage?: number;
 }
 
 function UsageMeterComponentNoUse(props: UsageMeterProps) {
@@ -34,10 +34,10 @@ function UsageMeterComponentNoUse(props: UsageMeterProps) {
         }}
       >
         <CircularProgressWithBackground
-          isDeterminate
+          isdeterminate="true"
           style={{
-            width: '150px',
-            height: '150px',
+            width: '300px',
+            height: '300px',
           }}
           {...props}
         />
@@ -61,17 +61,33 @@ function UsageMeterComponentNoUse(props: UsageMeterProps) {
             }}
           >
             {props?.usage ? (
-              <span>{props.usage}kWh</span>
+              <Typography
+                fontSize={24}
+              >
+                {props.usage}kWh
+              </Typography>
             ) : (
-              <span>0kWh</span>
+              <Typography
+                fontSize={24}
+              >
+                0kWh
+              </Typography>
             )}
 
             <Divider />
 
-            {props?.totalUsage ? (
-              <span>{props.totalUsage}kWh</span>
+            {props?.totalusage ? (
+              <Typography
+                fontSize={24}
+              >
+                {props.totalusage}kWh
+              </Typography>
             ) : (
-              <span>0kWh</span>
+              <Typography
+                fontSize={24}
+              >
+                0kWh
+              </Typography>
             )}
           </Box>
         </Box>
@@ -88,7 +104,7 @@ function UsageMeterComponent() {
     <UsageMeterComponentNoUse
       value={usage}
       usage={usage}
-      totalUsage={totalUsage}
+      totalusage={totalUsage}
     />
   )
 }

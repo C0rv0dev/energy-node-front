@@ -140,7 +140,7 @@ function Sidebar({ children }: Props) {
           <Box sx={{
             width: '100%',
             display: 'flex',
-            justifyContent: displayPath?.length ?? 0 > 0 ? 'space-between' : 'end',
+            justifyContent: displayPath.length > 0 ? 'space-between' : 'end',
             alignItems: 'center'
           }}>
             {displayPath}
