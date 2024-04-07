@@ -1,9 +1,7 @@
 enum RouteList {
-  Home = '/',
+  Home = '/home',
   About = '/about',
-  Contact = '/contact',
-  NotFound = '/404',
-  forEach = "forEach",
+  Energy = '/energy',
 };
 
 export default RouteList;

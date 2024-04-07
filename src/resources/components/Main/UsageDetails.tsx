@@ -64,7 +64,7 @@ function UsageDetails({ usage, totalusage }: UsageDetailsProps) {
         </Divider>
 
         <UsageDetailsRow
-          label="Cost"
+          label="Estimated Cost"
           value={usage ? `$${(usage * 0.12).toFixed(2)}` : 'N/A'}
         />
       </Box>

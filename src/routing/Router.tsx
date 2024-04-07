@@ -15,6 +15,16 @@ function Router() {
             path={RouteList.Home}
             element={<Main />}
           />
+          
+          <Route 
+            path={RouteList.About}
+            element={<div>About</div>}
+          />
+
+          <Route 
+            path={RouteList.Energy}
+            element={<div>Energy</div>}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

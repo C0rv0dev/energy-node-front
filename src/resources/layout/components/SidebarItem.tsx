@@ -12,8 +12,11 @@ interface Props {
 }
 
 function SideBarItem({ open, path, icon }: Props) {
+  // variables
   const navigateTo = useNavigate();
+  const selected = window.location.pathname === `/${path}`;
 
+  // functions 
   const formatToDisplay = (path: string) => {
     // set first letter to uppercase
     return path.charAt(0).toUpperCase() + path.slice(1);
@@ -28,8 +31,12 @@ function SideBarItem({ open, path, icon }: Props) {
     <>
       <ListItem
         key={path}
-        disablePadding sx={{ display: 'block' }}
+        disablePadding 
         onClick={handleNavigate}
+        sx={{ 
+          display: 'block',
+          background: selected ? (theme) => theme.palette.primary.main : 'transparent',
+        }}
       >
         <ListItemButton
           sx={{
@@ -44,6 +51,7 @@ function SideBarItem({ open, path, icon }: Props) {
               minWidth: 0,
               mr: open ? 3 : 'auto',
               justifyContent: 'center',
+              ...(selected && { color: 'white' }),
             }}
           >
             {icon}

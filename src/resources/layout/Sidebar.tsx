@@ -13,12 +13,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SidebarItem from './components/SidebarItem';
-
-// icons
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import ErrorIcon from '@mui/icons-material/Error';
 import config from '../../config/config';
 import RoutingContext from '../../contexts/RoutingContext';
+
+// icons
+import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
+import ErrorIcon from '@mui/icons-material/Error';
+import HomeIcon from '@mui/icons-material/Home';
 
 const drawerWidth = 240;
 
@@ -154,8 +155,14 @@ function Sidebar({ children }: Props) {
         <List sx={{ paddingTop: 0 }}>
           <SidebarItem
             open={open}
-            path='inbox'
-            icon={<InboxIcon />}
+            path="home"
+            icon={<HomeIcon />}
+          />
+
+          <SidebarItem
+            open={open}
+            path="energy"
+            icon={<OfflineBoltIcon />}
           />
 
           <SidebarItem
