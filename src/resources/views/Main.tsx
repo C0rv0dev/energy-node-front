@@ -28,8 +28,11 @@ function Main() {
           container
           spacing={1}
           justifyContent="space-between"
+          sx={{
+            height: '100%'
+          }}
         >
-          <Grid item xs={4}>
+          <Grid item xs={12} md={6}>
             <CardContent sx={{ flex: '1 0 auto' }}>
               <UsageMeterComponent
                 value={usage}
@@ -39,12 +42,15 @@ function Main() {
             </CardContent>
           </Grid>
 
-          <Grid item xs={6}>
-            <CardContent
-              sx={{
-                height: '100%',
-              }}
-            >
+          <Grid
+            item
+            xs={12}
+            md={6}
+            sx={{
+              height: "100%"
+            }}
+          >
+            <CardContent sx={{ height: '100%' }}>
               <UsageDetails
                 usage={usage}
                 totalusage={totalUsage}
