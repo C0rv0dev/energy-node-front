@@ -2,25 +2,21 @@ import api from '../api';
 
 class EnergyUseProvider {
   usage: number = 0;
-  totalUsage: number = 0;
-
-  constructor() {
-    this.setEnergyUsageInformation();
-  }
-
-  setTotalUsage(totalUsage: number) {
-    this.totalUsage = totalUsage;
-  }
+  totalConsumptionRange: number = 0;
 
   setUsage(usage: number) {
     this.usage = usage;
   }
 
-  private async setEnergyUsageInformation() {
+  setTotalConsumptionRange(totalConsumptionRange: number) {
+    this.totalConsumptionRange = totalConsumptionRange;
+  }
+
+  async getEnergyUse() {
     await api.get('/home-display')
       .then((response) => {
         this.setUsage(response.data.usage);
-        this.setTotalUsage(response.data.totalUsage);
+        this.setTotalConsumptionRange(response.data.totalUsage);
       });
   }
 }

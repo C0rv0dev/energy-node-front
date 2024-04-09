@@ -9,9 +9,17 @@ function Main() {
   const [usage, setUsage] = React.useState<number>(0);
   const [totalUsage, setTotalUsage] = React.useState<number>(0);
 
+  // use a timer to call backend API every 5 seconds
   React.useEffect(() => {
-    setUsage(EnergyUseProvider.usage);
-    setTotalUsage(EnergyUseProvider.totalUsage);
+    const interval = setInterval(() => {
+      EnergyUseProvider.getEnergyUse()
+        .then(() => {
+          setUsage(EnergyUseProvider.usage);
+          setTotalUsage(EnergyUseProvider.totalConsumptionRange);
+        });
+    }, (10 * 1000));
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
