@@ -14,7 +14,7 @@ interface Props {
 function SideBarItem({ open, path, icon }: Props) {
   // variables
   const navigateTo = useNavigate();
-  const selected = window.location.pathname === `/${path}`;
+  const selected = window.location.pathname === path;
 
   // functions 
   const formatToDisplay = (path: string) => {

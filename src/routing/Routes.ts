@@ -1,5 +1,5 @@
 enum RouteList {
-  Home = '/home',
+  Home = '/',
   About = '/about',
   Energy = '/energy',
 };

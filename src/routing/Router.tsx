@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // views imports
 import Main from "../resources/views/Main";
 import LayoutOutlet from "../resources/layout/LayoutOutlet";
+import Energy from "../resources/views/Energy";
 
 function Router() {
   return (
@@ -17,13 +18,13 @@ function Router() {
           />
           
           <Route 
-            path={RouteList.About}
-            element={<div>About</div>}
+            path={RouteList.Energy}
+            element={<Energy />}
           />
 
           <Route 
-            path={RouteList.Energy}
-            element={<div>Energy</div>}
+            path={RouteList.About}
+            element={<div>About</div>}
           />
         </Route>
       </Routes>

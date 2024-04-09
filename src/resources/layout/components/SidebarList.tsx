@@ -4,8 +4,9 @@ import SidebarItem from './SidebarItem';
 
 // Icons imports
 import HomeIcon from '@mui/icons-material/Home';
-import ErrorIcon from '@mui/icons-material/Error';
+import Info from '@mui/icons-material/Info';
 import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
+import RouteList from '../../../routing/Routes';
 
 interface SidebarListProps {
   open: boolean;
@@ -16,20 +17,20 @@ function SidebarList({ open }: SidebarListProps) {
     <List sx={{ paddingTop: 0 }}>
       <SidebarItem
         open={open}
-        path="home"
+        path={RouteList.Home}
         icon={<HomeIcon />}
       />
 
       <SidebarItem
         open={open}
-        path="energy"
+        path={RouteList.Energy}
         icon={<OfflineBoltIcon />}
       />
 
       <SidebarItem
         open={open}
-        path='about'
-        icon={<ErrorIcon />}
+        path={RouteList.About}
+        icon={<Info />}
       />
     </List>
   )

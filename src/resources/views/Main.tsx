@@ -1,8 +1,9 @@
 import React from "react";
-import { Card, CardContent, CardHeader, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import UsageMeterComponent from "../components/Main/UsageMeterComponent";
 import UsageDetails from "../components/Main/UsageDetails";
 import EnergyUseProvider from "../../providers/EnergyUseProvider";
+import CardComponent from "../components/CardComponent";
 
 function Main() {
   const [usage, setUsage] = React.useState<number>(0);
@@ -15,15 +16,12 @@ function Main() {
 
   return (
     <>
-      <Card sx={{ display: 'flex', flexDirection: 'column' }}>
-        <CardHeader
-          title="Monthly Usage Avg. (kWh)"
-          sx={{
-            backgroundColor: (theme) => theme.palette.primary.main,
-            color: 'white',
-          }}
-        />
-
+      <CardComponent
+        hasHeader
+        headerTitle="Monthly Usage Avg. (kWh)"
+        headerBackgroundColor={(theme) => theme.palette.primary.main}
+        headerFontColor="white"
+      >
         <Grid
           container
           spacing={1}
@@ -33,13 +31,11 @@ function Main() {
           }}
         >
           <Grid item xs={12} md={6}>
-            <CardContent sx={{ flex: '1 0 auto' }}>
-              <UsageMeterComponent
-                value={usage}
-                usage={usage}
-                totalusage={totalUsage}
-              />
-            </CardContent>
+            <UsageMeterComponent
+              value={usage}
+              usage={usage}
+              totalusage={totalUsage}
+            />
           </Grid>
 
           <Grid
@@ -50,15 +46,13 @@ function Main() {
               height: "100%"
             }}
           >
-            <CardContent sx={{ height: '100%' }}>
-              <UsageDetails
-                usage={usage}
-                totalusage={totalUsage}
-              />
-            </CardContent>
+            <UsageDetails
+              usage={usage}
+              totalusage={totalUsage}
+            />
           </Grid>
         </Grid>
-      </Card>
+      </CardComponent>
     </>
   );
 }
