@@ -7,8 +7,21 @@ import CircularProgressWithBackground from '../CircularProgressWithBackground';
 interface UsageMeterProps extends CircularProgressProps {
   value: number;
   usage?: number;
-  totalusage?: number;
+  totalconsumptionrange?: number;
 }
+
+function UsageMeterComponent({ usage, totalconsumptionrange }: UsageMeterProps) {
+  const percentage = ((usage ?? 0) / (totalconsumptionrange ?? 0)) * 100;
+
+  return (
+    <UsageMeterComponentNoUse
+      value={percentage}
+      usage={usage}
+      totalconsumptionrange={totalconsumptionrange}
+    />
+  )
+}
+
 
 function UsageMeterComponentNoUse(props: UsageMeterProps) {
   return (
@@ -53,50 +66,42 @@ function UsageMeterComponentNoUse(props: UsageMeterProps) {
               flexDirection: 'column',
             }}
           >
-            {props?.usage ? (
-              <Typography
-                fontSize={24}
-              >
-                {props.usage}kWh
-              </Typography>
-            ) : (
-              <Typography
-                fontSize={24}
-              >
-                0kWh
-              </Typography>
-            )}
+            <Typography
+              fontSize={24}
+              textAlign="center"
+            >
+              {props?.usage ? (
+                <>
+                  {props.usage} kWh
+                </>
+              ) : (
+                <>
+                  0 kWh
+                </>
+              )}
+            </Typography>
 
             <Divider />
 
-            {props?.totalusage ? (
-              <Typography
-                fontSize={24}
-              >
-                {props.totalusage}kWh
-              </Typography>
-            ) : (
-              <Typography
-                fontSize={24}
-              >
-                0kWh
-              </Typography>
-            )}
+            <Typography
+              fontSize={24}
+              textAlign="center"
+            >
+              {props?.totalconsumptionrange ? (
+                <>
+                  {props.totalconsumptionrange} kWh
+                </>
+              ) : (
+                <>
+                  0 kWh
+                </>
+              )}
+            </Typography>
           </Box>
         </Box>
       </Box>
     </Box>
   );
-}
-
-function UsageMeterComponent({ usage, totalusage }: UsageMeterProps) {
-  return (
-    <UsageMeterComponentNoUse
-      value={usage ?? 0}
-      usage={usage}
-      totalusage={totalusage}
-    />
-  )
 }
 
 export default UsageMeterComponent;

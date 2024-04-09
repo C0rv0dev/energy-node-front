@@ -4,6 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 interface CircularProgressWithBackgroundProps {
   isdeterminate?: string;
+  totalconsumptionrange?: number;
 }
 
 function CircularProgressWithBackground(props: CircularProgressWithBackgroundProps) {

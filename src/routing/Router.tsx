@@ -3,10 +3,13 @@ import RouteList from './Routes';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // views imports
-import Main from "../resources/views/Main";
+import MainPage from "../resources/views/Main";
+import EnergyPage from "../resources/views/Energy";
+import AboutPage from "../resources/views/About";
+import SettingsPage from "../resources/views/Settings/Settings";
+
+// layout
 import LayoutOutlet from "../resources/layout/LayoutOutlet";
-import Energy from "../resources/views/Energy";
-import About from "../resources/views/About";
 
 function Router() {
   return (
@@ -15,22 +18,22 @@ function Router() {
         <Route path="/" element={<LayoutOutlet />}>
           <Route
             path={RouteList.Home}
-            element={<Main />}
+            element={<MainPage />}
           />
 
           <Route
             path={RouteList.Energy}
-            element={<Energy />}
+            element={<EnergyPage />}
           />
 
           <Route
             path={RouteList.Settings}
-            element={<div>Settings</div>}
+            element={<SettingsPage />}
           />
 
           <Route
             path={RouteList.About}
-            element={<About />}
+            element={<AboutPage />}
           />
         </Route>
       </Routes>

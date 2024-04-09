@@ -3,7 +3,7 @@ import React from 'react';
 
 interface UsageDetailsProps {
   usage?: number;
-  totalusage?: number;
+  totalconsumptionrange?: number;
 }
 
 interface UsageDetailsRowProps {
@@ -11,7 +11,7 @@ interface UsageDetailsRowProps {
   value: string;
 }
 
-function UsageDetails({ usage, totalusage }: UsageDetailsProps) {
+function UsageDetails({ usage, totalconsumptionrange }: UsageDetailsProps) {
   return (
     <Card
       sx={{
@@ -43,16 +43,16 @@ function UsageDetails({ usage, totalusage }: UsageDetailsProps) {
         />
 
         <UsageDetailsRow
-          label="Total Usage"
-          value={totalusage ? `${totalusage} kWh` : 'N/A'}
+          label="Remaining Usage"
+          value={usage && totalconsumptionrange ? `${totalconsumptionrange - usage} kWh` : `${totalconsumptionrange} kWh`}
         />
 
         <UsageDetailsRow
-          label="Remaining Usage"
-          value={usage && totalusage ? `${totalusage - usage} kWh` : `${totalusage} kWh`}
+          label="Total Consumption Range"
+          value={totalconsumptionrange ? `${totalconsumptionrange} kWh` : 'N/A'}
         />
 
-        <Divider 
+        <Divider
           sx={{
             marginTop: '10px',
             marginBottom: '10px',

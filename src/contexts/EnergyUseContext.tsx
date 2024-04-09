@@ -1,8 +1,10 @@
 import { createContext } from "react";
 
 interface EnergyUseContextProps {
-  energyUse: number;
-  setEnergyUse: (value: number) => void;
+  usage: number;
+  totalConsumptionRange: number;
+  updateTotalConsumptionRange: (totalConsumptionRange: number) => void;
+  getEnergyUse: () => void;
 }
 
 const EnergyUseContext = createContext<EnergyUseContextProps>({} as EnergyUseContextProps);

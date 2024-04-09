@@ -1,11 +1,11 @@
 if (process.env.NODE_ENV !== 'production') require ('dotenv').config();
 
 // app
-const PORT = process.env.PORT || 3000;
+const API_PORT = process.env.API_PORT || 3000;
 
 const API_VERSION = process.env.API_VERSION || 'v1';
 
-const API_BASE_URL = `http://localhost:${PORT}/api/${API_VERSION}`;
+const API_BASE_URL = process.env.API_URL || `http://localhost:${API_PORT}/api/${API_VERSION}`;
 
 const APP_NAME = process.env.REACT_APP_NAME || 'React App';
 
@@ -17,7 +17,7 @@ const AUTHOR_GITHUB_URL = process.env.REACT_APP_AUTHOR_GITHUB_URL || 'https://gi
 const AUTHOR_NAME = process.env.REACT_APP_AUTHOR_NAME || 'Lucas Costa Couto'
 
 const config = {
-    port: PORT,
+    port: API_PORT,
     api_version: API_VERSION,
     api_base_url: API_BASE_URL,
     app_name: APP_NAME,
