@@ -4,6 +4,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useNavigate } from 'react-router-dom';
+import RouteList from '../../../routing/Routes';
 
 interface Props {
   path: string;
@@ -18,8 +19,20 @@ function SideBarItem({ open, path, icon }: Props) {
 
   // functions 
   const formatToDisplay = (path: string) => {
-    // set first letter to uppercase
-    return path.charAt(0).toUpperCase() + path.slice(1);
+    // create a swtich case to format the path for each route in RouteList programatically
+    switch (path) {
+      case RouteList.Home:
+        return 'Home';
+      case RouteList.Energy:
+        return 'Energy';
+      case RouteList.Settings:
+        return 'Settings';
+      case RouteList.About:
+        return 'About';
+      default:
+        return path.replace('/', '');
+    }
+
   };
 
   const handleNavigate = () => {
@@ -31,9 +44,9 @@ function SideBarItem({ open, path, icon }: Props) {
     <>
       <ListItem
         key={path}
-        disablePadding 
+        disablePadding
         onClick={handleNavigate}
-        sx={{ 
+        sx={{
           display: 'block',
           background: selected ? (theme) => theme.palette.primary.main : 'transparent',
         }}

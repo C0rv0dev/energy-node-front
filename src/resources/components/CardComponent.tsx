@@ -1,11 +1,11 @@
 import React from 'react';
-import { Card, CardContent, CardHeader } from '@mui/material';
+import { Card, CardContent, CardHeader, Theme } from '@mui/material';
 
 interface CardComponentProps {
   children: React.ReactNode;
   hasHeader?: boolean;
   headerTitle?: string;
-  headerBackgroundColor?: (theme: any) => string;
+  headerBackgroundColor?: (theme: Theme) => string;
   headerFontColor?: string;
   headerAlign?: 'left' | 'center' | 'right';
 }

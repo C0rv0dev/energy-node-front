@@ -1,7 +1,8 @@
 enum RouteList {
   Home = '/',
-  About = '/about',
   Energy = '/energy',
+  Settings = '/settings',
+  About = '/about',
 };
 
 export default RouteList;
