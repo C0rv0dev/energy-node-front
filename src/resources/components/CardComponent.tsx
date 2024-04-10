@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, Theme } from '@mui/material';
+import { Avatar, Card, CardContent, CardHeader, Theme } from '@mui/material';
 
 interface CardComponentProps {
   children: React.ReactNode;
@@ -8,6 +8,7 @@ interface CardComponentProps {
   headerBackgroundColor?: (theme: Theme) => string;
   headerFontColor?: string;
   headerAlign?: 'left' | 'center' | 'right';
+  avatar?: string;
 }
 
 function CardComponent({
@@ -17,6 +18,7 @@ function CardComponent({
   headerBackgroundColor,
   headerFontColor,
   headerAlign,
+  avatar
 }: CardComponentProps) {
   const defaultHeaderBackgroundColor = headerBackgroundColor ? headerBackgroundColor : (theme: any) => theme.palette.primary.main;
 
@@ -31,6 +33,11 @@ function CardComponent({
             color: headerFontColor,
             backgroundColor: defaultHeaderBackgroundColor,
           }}
+          avatar={avatar && (
+            <Avatar>
+              {avatar}
+            </Avatar>
+          )}
         />
       )}
       <CardContent>

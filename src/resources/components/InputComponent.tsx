@@ -6,6 +6,7 @@ interface InputComponentProps {
     label?: string;
     name?: string;
     fullWidth?: boolean;
+    placeholder?: string;
     type?: string;
     defaultValue?: number;
     endAdorment?: string;
@@ -17,6 +18,7 @@ function InputComponent({
     label,
     name,
     fullWidth,
+    placeholder,
     type,
     defaultValue,
     endAdorment,
@@ -28,6 +30,7 @@ function InputComponent({
             label={label}
             name={name}
             fullWidth={fullWidth}
+            placeholder={placeholder}
             type={type}
             defaultValue={defaultValue}
             InputProps={{
