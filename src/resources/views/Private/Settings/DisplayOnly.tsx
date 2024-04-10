@@ -1,5 +1,5 @@
 import React from "react";
-import EnergyUseContext from "../../../contexts/EnergyUseContext";
+import EnergyUseContext from "../../../../contexts/EnergyUseContext";
 import { Grid, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button } from "@mui/material";
 
 // icons

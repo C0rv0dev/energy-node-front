@@ -1,9 +1,9 @@
 import React from 'react';
-import CardComponent from '../components/CardComponent';
+import CardComponent from '../../components/CardComponent';
 import { Grid } from '@mui/material';
 
 function Energy() {
-  const formRef = React.useRef<HTMLFormElement>(null);
+  // const formRef = React.useRef<HTMLFormElement>(null);
 
   return (
     <Grid

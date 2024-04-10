@@ -3,18 +3,20 @@ import api from "../api";
 import { useMemo, useState } from "react";
 import EnergyUseContext from "../contexts/EnergyUseContext";
 import AppSettings from "../interfaces/AppSettings";
+import UserContext from "../contexts/UserContext";
 
 interface EnergyUseProviderProps {
   children: React.ReactNode;
 }
 
 const EnergyUseProvider = ({ children }: EnergyUseProviderProps) => {
+  const { user } = React.useContext(UserContext);
   const [usage, setUsage] = useState(0);
   const [appSettings, setAppSettings] = useState<AppSettings>({} as AppSettings);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const updateSettings = async (settings: AppSettings) => {
+  const updateSettings = React.useCallback(async (settings: AppSettings) => {
     setIsLoading(true);
 
     await api.put('/energy/settings', settings)
@@ -25,9 +27,9 @@ const EnergyUseProvider = ({ children }: EnergyUseProviderProps) => {
       }).finally(() => {
         setIsLoading(false);
       });
-  }
+  }, []);
 
-  const getEnergyUse = async () => {
+  const getEnergyUse = React.useCallback(async () => {
     await api.get('/home-display')
       .then((response) => {
         setUsage(response.data.usage);
@@ -35,7 +37,7 @@ const EnergyUseProvider = ({ children }: EnergyUseProviderProps) => {
       }).catch((error) => {
         setErrorMessage(error.response.data.error.message);
       });
-  }
+  }, []);
 
   // values to be exported 
   const exportValues = useMemo(() => ({
@@ -50,6 +52,8 @@ const EnergyUseProvider = ({ children }: EnergyUseProviderProps) => {
   // effects
   // use a timer to call backend API every 5 seconds
   React.useEffect(() => {
+    if (!user) return;
+
     getEnergyUse();
 
     const interval = setInterval(() => {
@@ -57,7 +61,7 @@ const EnergyUseProvider = ({ children }: EnergyUseProviderProps) => {
     }, (10 * 1000));
 
     return () => clearInterval(interval);
-  }, []);
+  }, [user, getEnergyUse]);
 
   return (
     <EnergyUseContext.Provider value={exportValues}>

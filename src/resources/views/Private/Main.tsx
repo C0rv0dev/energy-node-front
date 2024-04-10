@@ -1,9 +1,9 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import UsageMeterComponent from "../components/Main/UsageMeterComponent";
-import UsageDetails from "../components/Main/UsageDetails";
-import CardComponent from "../components/CardComponent";
-import EnergyUseContext from "../../contexts/EnergyUseContext";
+import UsageMeterComponent from "../../components/Main/UsageMeterComponent";
+import UsageDetails from "../../components/Main/UsageDetails";
+import CardComponent from "../../components/CardComponent";
+import EnergyUseContext from "../../../contexts/EnergyUseContext";
 
 function Main() {
   const { usage, appSettings } = React.useContext(EnergyUseContext);

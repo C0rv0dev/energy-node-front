@@ -21,13 +21,13 @@ function SideBarItem({ open, path, icon }: Props) {
   const formatToDisplay = (path: string) => {
     // create a swtich case to format the path for each route in RouteList programatically
     switch (path) {
-      case RouteList.Home:
+      case RouteList.PrivateRoutes.Home:
         return 'Home';
-      case RouteList.Energy:
+      case RouteList.PrivateRoutes.Energy:
         return 'Energy';
-      case RouteList.Settings:
+      case RouteList.PrivateRoutes.Settings:
         return 'Settings';
-      case RouteList.About:
+      case RouteList.PrivateRoutes.About:
         return 'About';
       default:
         return path.replace('/', '');

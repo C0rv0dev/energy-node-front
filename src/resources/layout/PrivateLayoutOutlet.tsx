@@ -2,7 +2,7 @@ import React from 'react';
 import Sidebar from './Sidebar';
 import { Outlet } from 'react-router-dom';
 
-function LayoutOutlet() {
+function PrivateLayoutOutlet() {
   return (
     <Sidebar>
       <Outlet />
@@ -10,4 +10,4 @@ function LayoutOutlet() {
   )
 }
 
-export default LayoutOutlet;
+export default PrivateLayoutOutlet;

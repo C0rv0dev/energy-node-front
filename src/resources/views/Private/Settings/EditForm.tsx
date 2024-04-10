@@ -1,12 +1,12 @@
 import React from "react";
 import { Grid, Button } from "@mui/material";
-import EnergyUseContext from "../../../contexts/EnergyUseContext";
+import EnergyUseContext from "../../../../contexts/EnergyUseContext";
 
 // icons 
 import SaveIcon from "@mui/icons-material/Save";
 
 // components
-import InputComponent from "../../components/InputComponent";
+import InputComponent from "../../../components/InputComponent";
 
 interface SettingsEditFormProps {
   formRef: React.RefObject<HTMLFormElement>;

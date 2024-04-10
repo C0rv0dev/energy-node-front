@@ -18,25 +18,25 @@ function SidebarList({ open }: SidebarListProps) {
     <List sx={{ paddingTop: 0 }}>
       <SidebarItem
         open={open}
-        path={RouteList.Home}
+        path={RouteList.PrivateRoutes.Home}
         icon={<HomeIcon />}
       />
 
       <SidebarItem
         open={open}
-        path={RouteList.Energy}
+        path={RouteList.PrivateRoutes.Energy}
         icon={<OfflineBoltIcon />}
       />
 
       <SidebarItem
         open={open}
-        path={RouteList.Settings}
+        path={RouteList.PrivateRoutes.Settings}
         icon={<Settings />}
       />
 
       <SidebarItem
         open={open}
-        path={RouteList.About}
+        path={RouteList.PrivateRoutes.About}
         icon={<Info />}
       />
     </List>

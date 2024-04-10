@@ -34,7 +34,7 @@ function Sidebar({ children }: Props) {
     window.addEventListener('resize', () => {
       resize()
     });
-  }, []);
+  }, [theme.breakpoints.values.sm]);
 
   if (isMobile) {
     return (

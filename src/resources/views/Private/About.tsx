@@ -1,10 +1,10 @@
 import React from 'react';
-import CardComponent from '../components/CardComponent';
+import CardComponent from '../../components/CardComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { Grid, IconButton } from '@mui/material';
-import config from '../../config/config';
+import config from '../../../config/config';
 
 function About() {
   return (
