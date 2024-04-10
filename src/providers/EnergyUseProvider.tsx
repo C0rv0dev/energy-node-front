@@ -2,6 +2,7 @@ import React from "react";
 import api from "../api";
 import { useMemo, useState } from "react";
 import EnergyUseContext from "../contexts/EnergyUseContext";
+import AppSettings from "../interfaces/AppSettings";
 
 interface EnergyUseProviderProps {
   children: React.ReactNode;
@@ -9,14 +10,20 @@ interface EnergyUseProviderProps {
 
 const EnergyUseProvider = ({ children }: EnergyUseProviderProps) => {
   const [usage, setUsage] = useState(0);
-  const [totalConsumptionRange, setTotalConsumptionRange] = useState(0);
+  const [appSettings, setAppSettings] = useState<AppSettings>({} as AppSettings);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const updateTotalConsumptionRange = async (totalConsumptionRange: number) => {
-    await api.put('/energy/total-consumption-range', {
-      totalConsumptionRange,
-    })
-      .then(() => {
-        setTotalConsumptionRange(totalConsumptionRange);
+  const updateSettings = async (settings: AppSettings) => {
+    setIsLoading(true);
+
+    await api.put('/energy/settings', settings)
+      .then((response) => {
+        setAppSettings(response.data);
+      }).catch((error) => {
+        setErrorMessage(error.response.data.error.message);
+      }).finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -24,17 +31,21 @@ const EnergyUseProvider = ({ children }: EnergyUseProviderProps) => {
     await api.get('/home-display')
       .then((response) => {
         setUsage(response.data.usage);
-        setTotalConsumptionRange(response.data.totalConsumptionRange);
+        setAppSettings(response.data);
+      }).catch((error) => {
+        setErrorMessage(error.response.data.error.message);
       });
   }
 
   // values to be exported 
-  const value = useMemo(() => ({
+  const exportValues = useMemo(() => ({
     usage,
-    totalConsumptionRange,
-    updateTotalConsumptionRange,
+    appSettings,
+    errorMessage,
+    isLoading,
+    updateSettings,
     getEnergyUse,
-  }), [usage, totalConsumptionRange]);
+  }), [usage, appSettings, errorMessage, isLoading, updateSettings, getEnergyUse]);
 
   // effects
   // use a timer to call backend API every 5 seconds
@@ -49,7 +60,7 @@ const EnergyUseProvider = ({ children }: EnergyUseProviderProps) => {
   }, []);
 
   return (
-    <EnergyUseContext.Provider value={value}>
+    <EnergyUseContext.Provider value={exportValues}>
       {children}
     </EnergyUseContext.Provider>
   );

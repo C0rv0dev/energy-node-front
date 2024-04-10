@@ -1,13 +1,16 @@
 import React from "react";
-import { Grid, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button } from "@mui/material";
 import EnergyUseContext from "../../../contexts/EnergyUseContext";
+import { Grid, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button } from "@mui/material";
+
+// icons
+import EditIcon from "@mui/icons-material/Edit";
 
 interface SettingsDisplayOnlyProps {
   setIsEditing: (isEditing: boolean) => void;
 }
 
 function SettingsDisplayOnly({ setIsEditing }: SettingsDisplayOnlyProps) {
-  const { totalConsumptionRange } = React.useContext(EnergyUseContext);
+  const { appSettings } = React.useContext(EnergyUseContext);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -37,7 +40,11 @@ function SettingsDisplayOnly({ setIsEditing }: SettingsDisplayOnlyProps) {
             <TableBody>
               <TableRow>
                 <TableCell>Total Consumption Range</TableCell>
-                <TableCell>{ totalConsumptionRange } kWh</TableCell>
+                <TableCell>{appSettings.totalConsumptionRange} kWh</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Price per kWh</TableCell>
+                <TableCell>{appSettings.pricePerKwh} ¥</TableCell>
               </TableRow>
             </TableBody>
           </Table>
@@ -51,7 +58,9 @@ function SettingsDisplayOnly({ setIsEditing }: SettingsDisplayOnlyProps) {
       >
         <Button
           variant="contained"
+          color="warning"
           onClick={handleEdit}
+          endIcon={<EditIcon />}
         >
           Edit
         </Button>

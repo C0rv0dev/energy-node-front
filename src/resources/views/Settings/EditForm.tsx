@@ -1,6 +1,12 @@
 import React from "react";
-import { Grid, TextField, InputAdornment, Button } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import EnergyUseContext from "../../../contexts/EnergyUseContext";
+
+// icons 
+import SaveIcon from "@mui/icons-material/Save";
+
+// components
+import InputComponent from "../../components/InputComponent";
 
 interface SettingsEditFormProps {
   formRef: React.RefObject<HTMLFormElement>;
@@ -8,12 +14,20 @@ interface SettingsEditFormProps {
 }
 
 function SettingsEditForm({ formRef, setIsEditing }: SettingsEditFormProps) {
-  const { totalConsumptionRange, updateTotalConsumptionRange } = React.useContext(EnergyUseContext);
+  const { appSettings, updateSettings, isLoading } = React.useContext(EnergyUseContext);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const formData = new FormData(formRef.current as HTMLFormElement);
     const totalConsumptionRange = Number(formData.get("totalConsumptionRange"));
-    updateTotalConsumptionRange(totalConsumptionRange);
+    const pricePerKwh = Number(formData.get("pricePerKwh"));
+
+    const settings = {
+      totalConsumptionRange,
+      pricePerKwh,
+    };
+
+    // update settings
+    updateSettings(settings);
     setIsEditing(false);
   }
 
@@ -29,22 +43,35 @@ function SettingsEditForm({ formRef, setIsEditing }: SettingsEditFormProps) {
       >
         {/* prevent default */}
         <form ref={formRef} onSubmit={(e) => e.preventDefault()}>
-          <TextField
-            id="total-consumption-range-input"
-            label="Total Consumption Range"
-            name="totalConsumptionRange"
-            fullWidth
-            type="number"
-            defaultValue={totalConsumptionRange}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  kWh
-                </InputAdornment>
-              ),
-            }}
-            variant="outlined"
-          />
+          <Grid
+            container
+            spacing={2}
+            flexDirection="column"
+          >
+            <Grid item>
+              <InputComponent
+                id="totalConsumptionRange"
+                label="Total Consumption Range"
+                name="totalConsumptionRange"
+                fullWidth
+                type="number"
+                defaultValue={appSettings.totalConsumptionRange}
+                endAdorment="kWh"
+              />
+            </Grid>
+
+            <Grid item>
+              <InputComponent
+                id="pricePerKwh"
+                label="Price per kWh"
+                name="pricePerKwh"
+                fullWidth
+                type="number"
+                defaultValue={appSettings.pricePerKwh}
+                endAdorment="¥"
+              />
+            </Grid>
+          </Grid>
         </form>
       </Grid>
 
@@ -57,6 +84,8 @@ function SettingsEditForm({ formRef, setIsEditing }: SettingsEditFormProps) {
           variant="contained"
           color="success"
           onClick={handleSave}
+          endIcon={<SaveIcon />}
+          disabled={isLoading}
         >
           Save
         </Button>

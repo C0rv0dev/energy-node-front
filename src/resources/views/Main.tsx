@@ -6,7 +6,7 @@ import CardComponent from "../components/CardComponent";
 import EnergyUseContext from "../../contexts/EnergyUseContext";
 
 function Main() {
-  const { usage, totalConsumptionRange } = React.useContext(EnergyUseContext);
+  const { usage, appSettings } = React.useContext(EnergyUseContext);
 
   return (
     <>
@@ -28,7 +28,7 @@ function Main() {
             <UsageMeterComponent
               value={usage}
               usage={usage}
-              totalconsumptionrange={totalConsumptionRange}
+              totalconsumptionrange={appSettings.totalConsumptionRange}
             />
           </Grid>
 
@@ -42,7 +42,7 @@ function Main() {
           >
             <UsageDetails
               usage={usage}
-              totalconsumptionrange={totalConsumptionRange}
+              totalconsumptionrange={appSettings.totalConsumptionRange}
             />
           </Grid>
         </Grid>

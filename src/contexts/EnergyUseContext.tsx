@@ -1,9 +1,12 @@
 import { createContext } from "react";
+import AppSettings from "../interfaces/AppSettings";
 
 interface EnergyUseContextProps {
   usage: number;
-  totalConsumptionRange: number;
-  updateTotalConsumptionRange: (totalConsumptionRange: number) => void;
+  appSettings: AppSettings;
+  errorMessage: string;
+  isLoading: boolean;
+  updateSettings: (settings: AppSettings) => void;
   getEnergyUse: () => void;
 }
 
