@@ -8,11 +8,14 @@ interface UserProviderProps {
 
 function UserProvider({ children }: UserProviderProps) {
   const [user, setUser] = React.useState<User | null>(null);
+  const [isUserAuthenticated, setIsUserAuthenticated] = React.useState<boolean>(false);
 
   const exportValues = React.useMemo(() => ({
     user,
     setUser,
-  }), [user, setUser]);
+    isUserAuthenticated,
+    setIsUserAuthenticated,
+  }), [user, setUser, isUserAuthenticated, setIsUserAuthenticated]);
 
   return (
     <UserContext.Provider value={exportValues}>

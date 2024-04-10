@@ -4,6 +4,8 @@ import User from "../interfaces/User";
 interface UserContextProps {
   user: User | null;
   setUser: (user: User) => void;
+  isUserAuthenticated: boolean;
+  setIsUserAuthenticated: (isUserAuthenticated: boolean) => void;
 }
 
 const UserContext = createContext<UserContextProps>({} as UserContextProps);

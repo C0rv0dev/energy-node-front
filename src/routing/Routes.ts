@@ -1,5 +1,7 @@
 enum PublicRouteList {
   Login = '/login',
+  Register = "/register",
+  ForgotPassword = "/forgot-password",
 };
 
 enum PrivateRouteList {
