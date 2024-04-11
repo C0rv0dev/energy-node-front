@@ -1,10 +1,11 @@
 import { createContext } from "react";
-import User from "../interfaces/User";
+import { RegisterUser, User } from "../interfaces/User";
 
 interface UserContextProps {
   user: User | null;
-  setUser: (user: User) => void;
   isUserAuthenticated: boolean;
+  setUser: (user: User) => void;
+  registerUser: (user: RegisterUser) => Promise<void>;
   setIsUserAuthenticated: (isUserAuthenticated: boolean) => void;
 }
 

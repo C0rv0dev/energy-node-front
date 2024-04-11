@@ -15,7 +15,7 @@ import UserContext from "../contexts/UserContext";
 
 // publics
 import LoginPage from "../resources/views/Public/Login";
-import RegisterPage from "../resources/views/Public/Register";
+import RegisterPage from "../resources/views/Public/Register/Register";
 import ForgotPasswordPage from "../resources/views/Public/ForgotPassword";
 
 function RoutesProvider() {

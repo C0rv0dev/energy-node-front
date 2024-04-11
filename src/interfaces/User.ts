@@ -1,7 +1,16 @@
-interface User {
-    id: string;
-    name: string;
+interface RegisterUser {
+    firstName: string;
+    lastName: string;
     email: string;
+    password: string;
+    passwordConfirm: string;
 }
 
-export default User;
+interface User {
+    firstName: string;
+    lastName: string;
+    email: string;
+    id?: string;
+}
+
+export type { RegisterUser, User };
