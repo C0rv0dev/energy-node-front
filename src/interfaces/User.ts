@@ -6,6 +6,11 @@ interface RegisterUser {
     passwordConfirm: string;
 }
 
+interface LoginUser {
+    email: string;
+    password: string;
+}
+
 interface User {
     firstName: string;
     lastName: string;
@@ -13,4 +18,4 @@ interface User {
     id?: string;
 }
 
-export type { RegisterUser, User };
+export type { RegisterUser, LoginUser, User };
