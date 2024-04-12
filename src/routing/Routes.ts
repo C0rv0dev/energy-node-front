@@ -9,6 +9,7 @@ enum PrivateRouteList {
   Energy = '/energy',
   Settings = '/settings',
   About = '/about',
+  Logout = "/logout",
 };
 
 const RouteList = {

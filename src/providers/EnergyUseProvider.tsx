@@ -35,7 +35,7 @@ const EnergyUseProvider = ({ children }: EnergyUseProviderProps) => {
         setUsage(response.data.usage);
         setAppSettings(response.data);
       }).catch((error) => {
-        setErrorMessage(error.response.data.error.message);
+        setErrorMessage(error.response.data.message);
       });
   }, []);
 
@@ -52,12 +52,16 @@ const EnergyUseProvider = ({ children }: EnergyUseProviderProps) => {
   // effects
   // use a timer to call backend API every 5 seconds
   React.useEffect(() => {
+    const awaitGetEnergyUse = async () => {
+      await getEnergyUse();
+    };
+
     if (!user) return;
 
-    getEnergyUse();
+    awaitGetEnergyUse();
 
     const interval = setInterval(() => {
-      getEnergyUse();
+      awaitGetEnergyUse();
     }, (10 * 1000));
 
     return () => clearInterval(interval);

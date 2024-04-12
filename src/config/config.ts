@@ -12,7 +12,7 @@ const AUTHOR_GITHUB_URL = import.meta.env.VITE_APP_AUTHOR_GITHUB_URL || 'https:/
 const AUTHOR_NAME = import.meta.env.VITE_APP_AUTHOR_NAME || 'Lucas Costa Couto'
 
 // encryption
-const ENCRYPTION_SECRET = import.meta.env.ENCRYPTION_SECRET || 'test';
+const ENCRYPTION_SECRET = import.meta.env.VITE_APP_ENCRYPTION_KEY || 'test';
 
 const config = {
     env: APP_ENV,

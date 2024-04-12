@@ -4,6 +4,7 @@ import { LoginUser, RegisterUser, User } from "../interfaces/User";
 interface UserContextProps {
   user: User | null;
   isUserAuthenticated: boolean;
+  logoutUser: () => Promise<void>;
   setUser: (user: User) => void;
   loginUser: (data: LoginUser) => Promise<void>;
   registerUser: (user: RegisterUser) => Promise<void>;

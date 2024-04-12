@@ -7,18 +7,19 @@ import { useNavigate } from 'react-router-dom';
 import RouteList from '../../../routing/Routes';
 
 interface Props {
-  path: string;
   open: boolean;
   icon: JSX.Element;
+  path?: string;
+  clickHandler?: () => void;
 }
 
-function SideBarItem({ open, path, icon }: Props) {
+function SideBarItem({ open, icon, path, clickHandler }: Props) {
   // variables
   const navigateTo = useNavigate();
   const selected = window.location.pathname === path;
 
   // functions 
-  const formatToDisplay = (path: string) => {
+  const formatToDisplay = (path?: string) => {
     // create a swtich case to format the path for each route in RouteList programatically
     switch (path) {
       case RouteList.PrivateRoutes.Home:
@@ -29,15 +30,17 @@ function SideBarItem({ open, path, icon }: Props) {
         return 'Settings';
       case RouteList.PrivateRoutes.About:
         return 'About';
+      case RouteList.PrivateRoutes.Logout:
+        return 'Logout';
       default:
-        return path.replace('/', '');
+        return path && path.replace('/', '');
     }
 
   };
 
   const handleNavigate = () => {
     // navigate to path
-    navigateTo(path);
+    path && navigateTo(path);
   }
 
   return (
@@ -45,7 +48,7 @@ function SideBarItem({ open, path, icon }: Props) {
       <ListItem
         key={path}
         disablePadding
-        onClick={handleNavigate}
+        onClick={clickHandler ?? handleNavigate}
         sx={{
           display: 'block',
           background: selected ? (theme) => theme.palette.primary.main : 'transparent',

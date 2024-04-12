@@ -9,45 +9,43 @@ function Main() {
   const { usage, appSettings } = React.useContext(EnergyUseContext);
 
   return (
-    <>
-      <CardComponent
-        hasHeader
-        headerTitle="Monthly Usage Avg. (kWh)"
-        headerBackgroundColor={(theme) => theme.palette.primary.main}
-        headerFontColor="white"
+    <CardComponent
+      hasHeader
+      headerTitle="Monthly Usage Avg. (kWh)"
+      headerBackgroundColor={(theme) => theme.palette.primary.main}
+      headerFontColor="white"
+    >
+      <Grid
+        container
+        spacing={1}
+        justifyContent="space-between"
+        sx={{
+          height: '100%'
+        }}
       >
+        <Grid item xs={12} md={6}>
+          <UsageMeterComponent
+            value={usage}
+            usage={usage}
+            totalconsumptionrange={appSettings.totalConsumptionRange}
+          />
+        </Grid>
+
         <Grid
-          container
-          spacing={1}
-          justifyContent="space-between"
+          item
+          xs={12}
+          md={6}
           sx={{
-            height: '100%'
+            height: "100%"
           }}
         >
-          <Grid item xs={12} md={6}>
-            <UsageMeterComponent
-              value={usage}
-              usage={usage}
-              totalconsumptionrange={appSettings.totalConsumptionRange}
-            />
-          </Grid>
-
-          <Grid
-            item
-            xs={12}
-            md={6}
-            sx={{
-              height: "100%"
-            }}
-          >
-            <UsageDetails
-              usage={usage}
-              totalconsumptionrange={appSettings.totalConsumptionRange}
-            />
-          </Grid>
+          <UsageDetails
+            usage={usage}
+            totalconsumptionrange={appSettings.totalConsumptionRange}
+          />
         </Grid>
-      </CardComponent>
-    </>
+      </Grid>
+    </CardComponent>
   );
 }
 
