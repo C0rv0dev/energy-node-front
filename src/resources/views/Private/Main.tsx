@@ -4,9 +4,11 @@ import UsageMeterComponent from "../../components/Main/UsageMeterComponent";
 import UsageDetails from "../../components/Main/UsageDetails";
 import CardComponent from "../../components/CardComponent";
 import EnergyUseContext from "../../../contexts/EnergyUseContext";
+import SettingsContext from "../../../contexts/SettingsContext";
 
 function Main() {
-  const { usage, appSettings } = React.useContext(EnergyUseContext);
+  const { usage } = React.useContext(EnergyUseContext);
+  const { appSettings } = React.useContext(SettingsContext);
 
   return (
     <CardComponent

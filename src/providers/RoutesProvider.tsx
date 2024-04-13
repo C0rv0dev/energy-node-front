@@ -1,7 +1,11 @@
 import React from "react";
 import RouteList from "../routing/Routes";
 import { Routes, Route } from "react-router-dom";
+import isInPublics from "../utils/UnauthenticatedRoute";
+import UserContext from "../contexts/UserContext";
 
+// views imports
+// layouts
 import PrivateLayoutOutlet from "../resources/layout/PrivateLayoutOutlet";
 import PublicLayoutOulet from "../resources/layout/PublicLayoutOutlet"
 
@@ -11,7 +15,6 @@ import MainPage from "../resources/views/Private/Main";
 import EnergyPage from "../resources/views/Private/Energy";
 import SettingsPage from "../resources/views/Private/Settings/Settings";
 import AboutPage from "../resources/views/Private/About";
-import UserContext from "../contexts/UserContext";
 
 // publics
 import LoginPage from "../resources/views/Public/Login";
@@ -20,6 +23,16 @@ import ForgotPasswordPage from "../resources/views/Public/ForgotPassword";
 
 function RoutesProvider() {
   const { isUserAuthenticated } = React.useContext(UserContext);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isUserAuthenticated && !isInPublics(window.location.pathname)) {
+        window.location.href = RouteList.PublicRoutes.Login;
+      }
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [isUserAuthenticated]);
 
   return (
     <Routes>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Button } from "@mui/material";
-import EnergyUseContext from "../../../../contexts/EnergyUseContext";
+import SettingsContext from "../../../../contexts/SettingsContext";
 
 // icons 
 import SaveIcon from "@mui/icons-material/Save";
@@ -14,7 +14,7 @@ interface SettingsEditFormProps {
 }
 
 function SettingsEditForm({ formRef, setIsEditing }: SettingsEditFormProps) {
-  const { appSettings, updateSettings, isLoading } = React.useContext(EnergyUseContext);
+  const { appSettings, updateSettings, isLoading } = React.useContext(SettingsContext);
 
   const handleSave = async () => {
     const formData = new FormData(formRef.current as HTMLFormElement);
@@ -27,8 +27,10 @@ function SettingsEditForm({ formRef, setIsEditing }: SettingsEditFormProps) {
     };
 
     // update settings
-    updateSettings(settings);
-    setIsEditing(false);
+    updateSettings(settings)
+      .then(() => {
+        setIsEditing(false);
+      });
   }
 
   return (

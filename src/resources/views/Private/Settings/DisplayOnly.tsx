@@ -1,5 +1,5 @@
 import React from "react";
-import EnergyUseContext from "../../../../contexts/EnergyUseContext";
+import SettingsContext from "../../../../contexts/SettingsContext";
 import { Grid, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button } from "@mui/material";
 
 // icons
@@ -10,7 +10,7 @@ interface SettingsDisplayOnlyProps {
 }
 
 function SettingsDisplayOnly({ setIsEditing }: SettingsDisplayOnlyProps) {
-  const { appSettings } = React.useContext(EnergyUseContext);
+  const { appSettings } = React.useContext(SettingsContext);
 
   const handleEdit = () => {
     setIsEditing(true);
