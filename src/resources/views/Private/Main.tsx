@@ -5,6 +5,7 @@ import UsageDetails from "../../components/Main/UsageDetails";
 import CardComponent from "../../components/CardComponent";
 import EnergyUseContext from "../../../contexts/EnergyUseContext";
 import SettingsContext from "../../../contexts/SettingsContext";
+import dayjs from "dayjs";
 
 function Main() {
   const { usage } = React.useContext(EnergyUseContext);
@@ -12,7 +13,7 @@ function Main() {
 
   return (
     <CardComponent
-      headerTitle="Monthly Usage Avg. (kWh)"
+      headerTitle={`Monthly Usage Avg. (kWh) | ${dayjs().format("MMMM YYYY")}`}
       headerBackgroundColor={(theme) => theme.palette.primary.main}
       headerFontColor="white"
     >

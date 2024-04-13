@@ -4,6 +4,8 @@ import { useMemo, useState } from "react";
 import EnergyUseContext from "../contexts/EnergyUseContext";
 import { CreateEnergyRecord } from "../interfaces/EnergyUse";
 import UserContext from "../contexts/UserContext";
+import DateOption from "../types/DateOption";
+import { RecordCollection } from "../interfaces/RecordCollection";
 
 interface EnergyUseProviderProps {
   children: React.ReactNode;
@@ -12,20 +14,18 @@ interface EnergyUseProviderProps {
 const EnergyUseProvider = ({ children }: EnergyUseProviderProps) => {
   const { loginUser } = React.useContext(UserContext);
   const [usage, setUsage] = useState(0);
-  const [records, setRecords] = useState([]);
-  const [uniqueDates, setUniqueDates] = useState([]);
+  const [recordsCollection, setRecordsCollection] = useState<RecordCollection[]>([]);
+  const [uniqueDates, setUniqueDates] = useState<DateOption[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
 
   const getEnergyUse = React.useCallback(async () => {
     await api.get('/energy/my-usage')
       .then((response) => {
-        const { records, totalUsage } = response.data;
+        const { records, dateOptions, totalUsage } = response.data;
+        const uniques = dateOptions.map((date: number) => new DateOption(date));
 
-        const dates = records.map((record: any) => record.date);
-        const uniqueDates = dates.filter((date: any, index: any) => dates.indexOf(date) === index);
-
-        setUniqueDates(uniqueDates);
-        setRecords(records);
+        setUniqueDates(uniques);
+        setRecordsCollection(records);
         setUsage(totalUsage);
       }).catch((error) => {
         setErrorMessage(error.response.data.message);
@@ -35,6 +35,7 @@ const EnergyUseProvider = ({ children }: EnergyUseProviderProps) => {
   const createEnergyRecord = React.useCallback(async (data: CreateEnergyRecord) => {
     await api.post('/energy/my-usage/create', data)
       .then(() => {
+        setRecordsCollection([]);
         getEnergyUse();
       }).catch((error) => {
         setErrorMessage(error.response.data.message);
@@ -44,23 +45,24 @@ const EnergyUseProvider = ({ children }: EnergyUseProviderProps) => {
   const filterRecords = React.useCallback(async (date: string) => {
     const postDate = (date === 'none' || date === 'all') ? null : date;
 
-    await api.post('/energy/my-usage', { postDate })
+    await api.post('/energy/my-usage', { month: postDate })
       .then((response) => {
-        let recordsCollection = [];
         const { records } = response.data;
-
-        if (date === 'none' || date === 'all') {
-          recordsCollection = records;
-        } else {
-          recordsCollection = records.filter((record: any) => record.date === date);
-        }
-
-        setRecords(recordsCollection);
+        setRecordsCollection(records);
       })
       .catch((error) => {
         setErrorMessage(error.response.data.message);
       });
-  }, [records]);
+  }, [recordsCollection]);
+
+  const clearRecords = React.useCallback(async () => {
+    await api.delete('/energy/clear-records')
+      .then(() => {
+        setRecordsCollection([]);
+      }).catch((error) => {
+        setErrorMessage(error.response.data.message);
+      });
+  }, []);
 
   // values to be exported 
   const exportValues = useMemo(() => ({
@@ -69,8 +71,9 @@ const EnergyUseProvider = ({ children }: EnergyUseProviderProps) => {
     errorMessage,
     getEnergyUse,
     filterRecords,
-    createEnergyRecord
-  }), [usage, errorMessage, getEnergyUse, createEnergyRecord]);
+    createEnergyRecord,
+    clearRecords,
+  }), [usage, errorMessage, uniqueDates, getEnergyUse, filterRecords, createEnergyRecord, clearRecords]);
 
   // effects
   React.useEffect(() => {
@@ -78,7 +81,7 @@ const EnergyUseProvider = ({ children }: EnergyUseProviderProps) => {
   }, [loginUser, getEnergyUse]);
 
   return (
-    <EnergyUseContext.Provider value={{ ...exportValues, records }}>
+    <EnergyUseContext.Provider value={{ ...exportValues, recordsCollection }}>
       {children}
     </EnergyUseContext.Provider>
   );

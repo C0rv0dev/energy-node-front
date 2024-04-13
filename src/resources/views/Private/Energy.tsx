@@ -12,8 +12,7 @@ function Energy() {
   const formRef = React.useRef<HTMLFormElement>(null);
 
   const { appSettings } = React.useContext(SettingsContext);
-  const { records, uniqueDates, filterRecords, createEnergyRecord } = React.useContext(EnergyUseContext);
-
+  const { recordsCollection, uniqueDates, filterRecords, createEnergyRecord, clearRecords } = React.useContext(EnergyUseContext);
   const [selectedDate, setSelectedDate] = React.useState<string>('none');
 
   const handleAddEnergyRecord = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -41,8 +40,8 @@ function Energy() {
     filterRecords(date);
   }
 
-  const handleClearRecords = () => {
-    console.log('clearing records');
+  const handleClearRecords = async () => {
+    clearRecords();
   };
 
   // render
@@ -79,7 +78,9 @@ function Energy() {
         </MenuItem>
 
         {uniqueDates.map((date, index) => (
-          <MenuItem key={index} value={date}>{date}</MenuItem>
+          <MenuItem key={index} value={date.parseToMonth()}>
+            {date.parseToReadable()}
+          </MenuItem>
         ))}
       </Select>
     )
@@ -184,32 +185,48 @@ function Energy() {
             </>
           }
         >
-          <TableContainer
-            component={Paper}
-          >
-            <Table>
-              <TableHead
+          {recordsCollection.map((recordCollection, index) => (
+            <>
+              <Divider
                 sx={{
-                  backgroundColor: (theme) => theme.palette.grey[200],
+                  marginBottom: 1,
                 }}
               >
-                <TableRow>
-                  <TableCell>Date</TableCell>
-                  <TableCell>Meter Reading</TableCell>
-                  <TableCell>Price on the day</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {records.map((record, index) => (
-                  <TableRow key={record._id}>
-                    <TableCell>{record.date}</TableCell>
-                    <TableCell>{record.meter_reading}</TableCell>
-                    <TableCell>{record.price_on_the_day} ¥</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                {recordCollection.year}
+              </Divider>
+
+              <TableContainer
+                component={Paper}
+                key={recordCollection.year + index}
+                sx={{
+                  marginBottom: 2,
+                }}
+              >
+                <Table>
+                  <TableHead
+                    sx={{
+                      backgroundColor: (theme) => theme.palette.grey[200],
+                    }}
+                  >
+                    <TableRow>
+                      <TableCell>Date</TableCell>
+                      <TableCell>Meter Reading</TableCell>
+                      <TableCell>Price on the day</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {recordCollection.records.map((record, index) => (
+                      <TableRow key={record._id}>
+                        <TableCell>{record.date}</TableCell>
+                        <TableCell>{record.meter_reading}</TableCell>
+                        <TableCell>{record.price_on_the_day} ¥</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </>
+          ))}
         </CardComponent>
       </Grid>
     </Grid>
