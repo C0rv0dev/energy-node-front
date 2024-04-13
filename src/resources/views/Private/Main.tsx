@@ -12,7 +12,6 @@ function Main() {
 
   return (
     <CardComponent
-      hasHeader
       headerTitle="Monthly Usage Avg. (kWh)"
       headerBackgroundColor={(theme) => theme.palette.primary.main}
       headerFontColor="white"

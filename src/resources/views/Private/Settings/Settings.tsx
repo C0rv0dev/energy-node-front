@@ -9,7 +9,6 @@ function Settings() {
 
   return (
     <CardComponent
-      hasHeader
       headerTitle="Settings"
       headerBackgroundColor={(theme) => theme.palette.divider}
     >

@@ -10,7 +10,6 @@ function About() {
   return (
     <>
       <CardComponent
-        hasHeader
         headerTitle="About"
         headerBackgroundColor={(theme) => theme.palette.info.main}
         headerFontColor="white"
