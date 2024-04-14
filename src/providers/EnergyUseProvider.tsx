@@ -18,25 +18,31 @@ const EnergyUseProvider = ({ children }: EnergyUseProviderProps) => {
   const [uniqueDates, setUniqueDates] = useState<DateOption[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const getEnergyUse = React.useCallback(async () => {
+  const getEnergyUse = React.useCallback(async (month?: string) => {
     await api.get('/energy/my-usage')
       .then((response) => {
         const { records, dateOptions, totalUsage } = response.data;
         const uniques = dateOptions.map((date: number) => new DateOption(date));
 
         setUniqueDates(uniques);
-        setRecordsCollection(records);
         setUsage(totalUsage);
+
+        if (month) {
+          filterRecords(month);
+          return;
+        }
+
+        setRecordsCollection(records);
       }).catch((error) => {
         setErrorMessage(error.response.data.message);
       });
   }, []);
 
-  const createEnergyRecord = React.useCallback(async (data: CreateEnergyRecord) => {
+  const createEnergyRecord = React.useCallback(async (data: CreateEnergyRecord, month?: string) => {
     await api.post('/energy/my-usage/create', data)
       .then(() => {
         setRecordsCollection([]);
-        getEnergyUse();
+        getEnergyUse(month);
       }).catch((error) => {
         setErrorMessage(error.response.data.message);
       });

@@ -1,6 +1,6 @@
 import React from 'react';
 import CardComponent from '../../components/CardComponent';
-import { Box, Button, Divider, Grid, MenuItem, Paper, Select, SelectChangeEvent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Box, Button, Divider, FormControl, Grid, MenuItem, Paper, Select, SelectChangeEvent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Theme, Typography } from '@mui/material';
 import InputComponent from '../../components/InputComponent';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
@@ -31,7 +31,7 @@ function Energy() {
       price_per_kwh: pricePerKwh,
     }
 
-    await createEnergyRecord(data);
+    await createEnergyRecord(data, selectedDate);
   };
 
   const handleDateChange = (event: SelectChangeEvent<typeof selectedDate>) => {
@@ -57,32 +57,54 @@ function Energy() {
     };
 
     return (
-      <Select
-        open={open}
-        value={selectedDate}
-        onClose={handleClose}
-        onOpen={handleOpen}
-        onChange={handleDateChange}
-      >
-        <MenuItem
-          value="none"
-          disabled
+      <FormControl>
+        <Select
+          open={open}
+          value={selectedDate}
+          onClose={handleClose}
+          onOpen={handleOpen}
+          onChange={handleDateChange}
+          sx={{
+            color: 'white',
+            '& .MuiSelect-icon': {
+              color: 'white',
+            },
+            border: '1px solid white',
+          }}
+          inputProps={{
+            MenuProps: {
+              MenuListProps: {
+                sx: {
+                  backgroundColor: (theme: Theme) => theme.palette.primary.main,
+                  color: 'white',
+                }
+              }              
+            }
+          }}
         >
-          Select Date
-        </MenuItem>
-
-        <MenuItem
-          value="all"
-        >
-          Show All
-        </MenuItem>
-
-        {uniqueDates.map((date, index) => (
-          <MenuItem key={index} value={date.parseToMonth()}>
-            {date.parseToReadable()}
+          <MenuItem
+            value="none"
+            disabled
+          >
+            <Typography color="white">Select Date</Typography>
           </MenuItem>
-        ))}
-      </Select>
+
+          <MenuItem
+            value="all"
+          >
+            Show All
+          </MenuItem>
+
+          {uniqueDates.map((date, index) => (
+            <MenuItem
+              key={index}
+              value={date.parseToMonth()}
+            >
+              {date.parseToReadable()}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     )
   };
 
@@ -97,7 +119,7 @@ function Energy() {
           headerTitle="Residential Energy Use"
           headerBackgroundColor={(theme) => theme.palette.warning.light}
           headerFontColor="white"
-          headerAlign="right"
+          headerAlign="left"
         >
           <form ref={formRef}>
             <Box
@@ -163,25 +185,27 @@ function Energy() {
       <Grid item>
         <CardComponent
           headerTitle="Records"
-          headerBackgroundColor={(theme) => theme.palette.grey[500]}
+          headerBackgroundColor={(theme) => theme.palette.primary.dark}
           headerFontColor="white"
-          headerAlign="space-between"
+          headerAlign="left"
           headerActions={
             <>
+              {selectOptions()}
+
               <Button
-                variant="outlined"
+                variant="contained"
                 size="small"
+                sx={{
+                  backgroundColor: (theme) => theme.palette.error.main,
+                }}
                 onClick={handleClearRecords}
               >
                 <Typography
-                  variant="button"
                   color="white"
                 >
                   Clear
                 </Typography>
               </Button>
-
-              {selectOptions()}
             </>
           }
         >

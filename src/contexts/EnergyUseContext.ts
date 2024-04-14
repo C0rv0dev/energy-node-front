@@ -7,9 +7,9 @@ interface EnergyUseContextProps {
   usage: number;
   uniqueDates: DateOption[];
   recordsCollection: RecordCollection[];
-  getEnergyUse: () => Promise<void>;
+  getEnergyUse: (month?: string) => Promise<void>;
   filterRecords: (date: string) => void;
-  createEnergyRecord: (data: CreateEnergyRecord) => Promise<void>;
+  createEnergyRecord: (data: CreateEnergyRecord, month?: string) => Promise<void>;
   clearRecords: () => void;
 }
 

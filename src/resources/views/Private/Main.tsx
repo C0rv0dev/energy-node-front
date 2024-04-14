@@ -44,6 +44,7 @@ function Main() {
           <UsageDetails
             usage={usage}
             totalconsumptionrange={appSettings.totalConsumptionRange}
+            estimatedCost={appSettings.estimatedCost}
           />
         </Grid>
       </Grid>

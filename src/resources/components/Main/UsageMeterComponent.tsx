@@ -36,7 +36,7 @@ function UsageMeterComponentNoUse(props: UsageMeterProps) {
       <Box
         sx={{
           position: 'relative',
-          display: 'inline-flex'
+          display: 'inline-flex',
         }}
       >
         <CircularProgressWithBackground

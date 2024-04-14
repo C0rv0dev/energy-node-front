@@ -4,6 +4,7 @@ import React from 'react';
 interface UsageDetailsProps {
   usage?: number;
   totalconsumptionrange?: number;
+  estimatedCost?: number;
 }
 
 interface UsageDetailsRowProps {
@@ -11,7 +12,7 @@ interface UsageDetailsRowProps {
   value: string;
 }
 
-function UsageDetails({ usage, totalconsumptionrange }: UsageDetailsProps) {
+function UsageDetails({ usage, totalconsumptionrange, estimatedCost }: UsageDetailsProps) {
   return (
     <Card
       sx={{
@@ -65,7 +66,7 @@ function UsageDetails({ usage, totalconsumptionrange }: UsageDetailsProps) {
 
         <UsageDetailsRow
           label="Estimated Cost"
-          value={usage ? `$${(usage * 0.12).toFixed(2)}` : 'N/A'}
+          value={estimatedCost ? `${estimatedCost} ¥` : 'N/A'}
         />
       </Box>
     </Card>

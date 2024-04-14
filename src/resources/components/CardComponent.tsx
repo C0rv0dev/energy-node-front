@@ -1,5 +1,5 @@
 import React from 'react';
-import {  Box, Card, CardContent, Theme, Typography } from '@mui/material';
+import { Box, Card, CardContent, Theme, Typography } from '@mui/material';
 
 interface CardComponentProps {
   children: React.ReactNode;
@@ -34,10 +34,6 @@ function CardComponent({
             justifyContent: headerActions ? 'space-between' : headerAlign,
           }}
         >
-          {headerActions && (
-            headerActions
-          )}
-
           <Box
             sx={{
               display: 'flex',
@@ -52,6 +48,10 @@ function CardComponent({
               {headerTitle}
             </Typography>
           </Box>
+
+          {headerActions && (
+            headerActions
+          )}
         </CardContent>
       )}
       <CardContent>
