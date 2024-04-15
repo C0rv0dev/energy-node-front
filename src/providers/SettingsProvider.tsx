@@ -50,6 +50,12 @@ const SettingsProvider = ({ children }: SettingsProviderProps) => {
 
   React.useEffect(() => {
     getSettings();
+
+    const timer = setInterval(() => {
+      getSettings();
+    }, 60000);
+
+    return () => clearInterval(timer);  
   }, [getSettings, loginUser]);
 
   return (

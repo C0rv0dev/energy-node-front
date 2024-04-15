@@ -7,6 +7,8 @@ import dayjs from 'dayjs';
 import EnergyUseContext from '../../../contexts/EnergyUseContext';
 import { CreateEnergyRecord } from '../../../interfaces/EnergyUse';
 import SettingsContext from '../../../contexts/SettingsContext';
+import { v4 as uuid } from 'uuid';
+import DialogComponent from '../../components/DialogComponent';
 
 function Energy() {
   const formRef = React.useRef<HTMLFormElement>(null);
@@ -14,6 +16,7 @@ function Energy() {
   const { appSettings } = React.useContext(SettingsContext);
   const { recordsCollection, uniqueDates, filterRecords, createEnergyRecord, clearRecords } = React.useContext(EnergyUseContext);
   const [selectedDate, setSelectedDate] = React.useState<string>('none');
+  const [openClearRecordsModal, setOpenClearRecordsModal] = React.useState(false);
 
   const handleAddEnergyRecord = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -40,9 +43,9 @@ function Energy() {
     filterRecords(date);
   }
 
-  const handleClearRecords = async () => {
-    clearRecords();
-  };
+  const toogleClearRecordsModal = () => {
+    setOpenClearRecordsModal(!openClearRecordsModal);
+  }
 
   // render
   const selectOptions = () => {
@@ -57,54 +60,54 @@ function Energy() {
     };
 
     return (
-      <FormControl>
-        <Select
-          open={open}
-          value={selectedDate}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          onChange={handleDateChange}
-          sx={{
+      <Select
+        open={open}
+        value={selectedDate}
+        onClose={handleClose}
+        onOpen={handleOpen}
+        onChange={handleDateChange}
+        sx={{
+          color: 'white',
+          '& .MuiSelect-icon': {
             color: 'white',
-            '& .MuiSelect-icon': {
-              color: 'white',
-            },
-            border: '1px solid white',
-          }}
-          inputProps={{
-            MenuProps: {
-              MenuListProps: {
-                sx: {
-                  backgroundColor: (theme: Theme) => theme.palette.primary.main,
-                  color: 'white',
-                }
-              }              
+          },
+          border: '1px solid white',
+        }}
+        inputProps={{
+          MenuProps: {
+            MenuListProps: {
+              sx: {
+                backgroundColor: (theme: Theme) => theme.palette.primary.main,
+                color: 'white',
+              }
             }
-          }}
+          }
+        }}
+      >
+        <MenuItem
+          key="none"
+          value="none"
+          disabled
         >
-          <MenuItem
-            value="none"
-            disabled
-          >
-            <Typography color="white">Select Date</Typography>
-          </MenuItem>
+          <Typography color="white">Select Date</Typography>
+        </MenuItem>
 
-          <MenuItem
-            value="all"
-          >
-            Show All
-          </MenuItem>
+        <MenuItem
+          key="all"
+          value="all"
+        >
+          Show All
+        </MenuItem>
 
-          {uniqueDates.map((date, index) => (
-            <MenuItem
-              key={index}
-              value={date.parseToMonth()}
-            >
-              {date.parseToReadable()}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+        {uniqueDates.map((date, index) => (
+          <MenuItem
+            key={index}
+            value={date.parseToMonth()}
+          >
+            {date.parseToReadable()}
+          </MenuItem>
+        ))}
+      </Select>
     )
   };
 
@@ -198,7 +201,7 @@ function Energy() {
                 sx={{
                   backgroundColor: (theme) => theme.palette.error.main,
                 }}
-                onClick={handleClearRecords}
+                onClick={toogleClearRecordsModal}
               >
                 <Typography
                   color="white"
@@ -221,12 +224,12 @@ function Energy() {
 
               <TableContainer
                 component={Paper}
-                key={recordCollection.year + index}
+                key={recordCollection.year}
                 sx={{
                   marginBottom: 2,
                 }}
               >
-                <Table>
+                <Table key={recordCollection.year + uuid()}>
                   <TableHead
                     sx={{
                       backgroundColor: (theme) => theme.palette.grey[200],
@@ -253,6 +256,21 @@ function Energy() {
           ))}
         </CardComponent>
       </Grid>
+
+      <DialogComponent
+        type='confirm'
+        open={openClearRecordsModal}
+        headerTitle='Are you sure you want to clear all records?'
+        onConfirm={clearRecords}
+        confirmButtonColor='error'
+        onClose={() => setOpenClearRecordsModal(false)}
+      >
+        <p>
+          By clearing all records, you will lose all your data.
+          <br />
+          Are you sure you want to proceed?
+        </p>
+      </DialogComponent>
     </Grid>
   );
 }
